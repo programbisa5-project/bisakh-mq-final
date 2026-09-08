@@ -1,4 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
+
+import type {
+  Angkatan,
+  TableName,
+} from "@/lib/supabase/database.types";
+
 import type { TableName } from "@/lib/supabase/database.types";
 
 async function count(
@@ -19,10 +25,15 @@ async function count(
 export default async function DashboardPage() {
   const supabase = createClient();
   const { data: angkatanAktif } = await supabase
-    .from("angkatan")
-    .select("id, nama_angkatan")
-    .eq("status", "Aktif");
+  .from("angkatan")
+  .select("id, nama_angkatan")
+  .eq("status", "Aktif");
 
+const typedAngkatanAktif: Pick<
+  Angkatan,
+  "id" | "nama_angkatan"
+>[] = angkatanAktif ?? [];
+  
   const [
     totalPeserta,
     pesertaAktif,
@@ -62,9 +73,9 @@ export default async function DashboardPage() {
       <h1 className="text-2xl text-ink">Dashboard</h1>
       <p className="mt-1 text-sm text-ink/60">
         Angkatan aktif:{" "}
-        {angkatanAktif && angkatanAktif.length > 0
-          ? angkatanAktif.map((a) => a.nama_angkatan).join(", ")
-          : "Tidak ada angkatan berstatus Aktif"}
+        {typedAngkatanAktif.length > 0
+  ? typedAngkatanAktif.map((a) => a.nama_angkatan).join(", ")
+  : "Tidak ada angkatan berstatus Aktif"}
       </p>
 
       <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
