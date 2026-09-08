@@ -48,8 +48,7 @@ onChange={(e) => setForm({ ...form, kategori: e.target.value })} />
 <textarea rows={6} className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Isi" value={form.isi}
 onChange={(e) => setForm({ ...form, isi: e.target.value })} />
 <label className="flex items-center gap-2 text-sm">
-<input type="checkbox" checked={form.status_aktif} onChange={(e)
-=> setForm({ ...form, status_aktif: e.target.checked })} />
+<input type="checkbox" checked={form.status_aktif} onChange={(e) => setForm({ ...form, status_aktif: e.target.checked })} />
 Aktif
 </label>
 </div>
