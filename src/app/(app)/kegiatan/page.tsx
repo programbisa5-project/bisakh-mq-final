@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import type { Angkatan } from "@/lib/supabase/database.types";
 import { getCurrentUser } from "@/lib/auth/role";
 import { Badge } from "@/components/ui/Badge";
 import { formatTanggal } from "@/lib/utils/format";
@@ -18,8 +19,13 @@ const isSuperadmin = user?.role === "superadmin";
 const { data: angkatanList } = await
 supabase.from("angkatan").select("id, nama_angkatan").order("id", {
 ascending: false });
-const angkatanId = searchParams.angkatan ?
-Number(searchParams.angkatan) : angkatanList?.[0]?.id;
+const typedAngkatanList: Pick<
+  Angkatan,
+  "id" | "nama_angkatan"
+>[] = angkatanList ?? [];
+const angkatanId = searchParams.angkatan
+  ? Number(searchParams.angkatan)
+  : typedAngkatanList[0]?.id;
 const { data: pekanList } = angkatanId
 ? await supabase.from("pekan").select("id, nomor_pekan, nama_pekan").eq("angkatan_id",
 angkatanId).order("nomor_pekan")
@@ -34,14 +40,17 @@ return (
 <div>
 <div className="flex flex-wrap items-center justify-between gap-3">
 <h1 className="text-2xl text-ink">Kegiatan</h1>
-{isSuperadmin && pekanList && pekanList.length > 0 ?
-<KegiatanForm pekanOptions={pekanList} /> : null}
+<AngkatanSelector
+  angkatanList={typedAngkatanList}
+  value={angkatanId}
+  basePath="/kegiatan"
+/>
 </div>
 
 
-<div className="mt-3">
-<AngkatanSelector angkatanList={angkatanList ?? []}
-value={angkatanId} basePath="/kegiatan" />
+{isSuperadmin && pekanList?.length > 0
+  ? <KegiatanForm pekanOptions={pekanList} />
+  : null}
 </div>
 <div className="mt-4 space-y-2">
 {!kegiatanRows || kegiatanRows.length === 0 ? (
