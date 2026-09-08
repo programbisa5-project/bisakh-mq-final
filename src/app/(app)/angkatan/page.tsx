@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import type { Angkatan } from "@/lib/supabase/database.types";
 import { getCurrentUser } from "@/lib/auth/role";
 import { Badge } from "@/components/ui/Badge";
 import { formatTanggal } from "@/lib/utils/format";
@@ -10,8 +11,11 @@ const user = await getCurrentUser();
 const isSuperadmin = user?.role === "superadmin";
 const { data: rows } = await
 supabase.from("angkatan").select("*").order("id", { ascending: false });
+
+const typedRows: Angkatan[] = rows ?? [];
+
 const withCounts = await Promise.all(
-(rows ?? []).map(async (a) => {
+  typedRows.map(async (a) => {
 const { count } = await supabase
 .from("peserta_kelas")
 .select("*", { count: "exact", head: true })
