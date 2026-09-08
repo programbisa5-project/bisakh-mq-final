@@ -65,8 +65,7 @@ setForm({ ...form, tingkat_kesulitan: e.target.value })}>
 </option>)}
 </select>
 <label className="flex items-center gap-2 text-sm">
-<input type="checkbox" checked={form.status_aktif} onChange={(e)
-=> setForm({ ...form, status_aktif: e.target.checked })} />
+<input type="checkbox" checked={form.status_aktif} onChange={(e) => setForm({ ...form, status_aktif: e.target.checked })} />
 Aktif
 </label>
 
