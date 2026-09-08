@@ -5,8 +5,6 @@ import type {
   TableName,
 } from "@/lib/supabase/database.types";
 
-import type { TableName } from "@/lib/supabase/database.types";
-
 async function count(
   supabase: ReturnType<typeof createClient>,
   table: TableName,
