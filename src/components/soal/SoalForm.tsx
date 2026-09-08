@@ -41,8 +41,7 @@ return (
 <>
 
 
-<Button variant={existing ? "secondary" : "primary"} className=
-{existing ? "px-2 py-1 text-xs" : ""} onClick={() => setOpen(true)}>
+<Button variant={existing ? "secondary" : "primary"} className={existing ? "px-2 py-1 text-xs" : ""} onClick={() => setOpen(true)}>
 {existing ? "Edit" : "Tambah soal"}
 </Button>
 {open ? (
