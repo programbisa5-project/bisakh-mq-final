@@ -30,8 +30,7 @@ setLoading(false);
 }
 return (
 <>
-<Button variant={existing ? "secondary" : "primary"} className=
-{existing ? "px-2 py-1 text-xs" : ""} onClick={() => setOpen(true)}>
+<Button variant={existing ? "secondary" : "primary"} className={existing ? "px-2 py-1 text-xs" : ""} onClick={() => setOpen(true)}>
 {existing ? "Edit" : "Tambah template"}
 </Button>
 {open ? (
@@ -40,15 +39,13 @@ return (
 <h3 className="font-display text-lg text-ink">{existing ? "Edit template" : "Tambah template"}</h3>
 <div className="mt-4 space-y-3">
 <input className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Nama template" value=
-{form.nama_template} onChange={(e) => setForm({ ...form,
-nama_template: e.target.value })} />
+{form.nama_template} onChange={(e) => setForm({ ...form, nama_template: e.target.value })} />
 <input className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Kategori" value={form.kategori}
 onChange={(e) => setForm({ ...form, kategori: e.target.value })} />
 <textarea rows={6} className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Isi template (disimpan persis apa adanya)" value={form.isi_template} onChange={(e) => setForm({
 ...form, isi_template: e.target.value })} />
 <label className="flex items-center gap-2 text-sm">
-<input type="checkbox" checked={form.status_aktif} onChange={(e)
-=> setForm({ ...form, status_aktif: e.target.checked })} />
+<input type="checkbox" checked={form.status_aktif} onChange={(e) => setForm({ ...form, status_aktif: e.target.checked })} />
 Aktif
 </label>
 </div>
