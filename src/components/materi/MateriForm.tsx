@@ -45,8 +45,7 @@ onChange={(e) => setForm({ ...form, kategori: e.target.value })} />
 {form.isi_materi} onChange={(e) => setForm({ ...form, isi_materi:
 e.target.value })} />
 <label className="flex items-center gap-2 text-sm">
-<input type="checkbox" checked={form.status_aktif} onChange={(e)
-=> setForm({ ...form, status_aktif: e.target.checked })} />
+<input type="checkbox" checked={form.status_aktif} onChange={(e) => setForm({ ...form, status_aktif: e.target.checked })} />
 Aktif
 </label>
 </div>
