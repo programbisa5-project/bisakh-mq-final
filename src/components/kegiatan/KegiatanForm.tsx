@@ -73,7 +73,7 @@ onChange={(e) => setForm({ ...form, deskripsi: e.target.value })} />
 onChange={(e) => setForm({ ...form, tanggal_kegiatan: e.target.value
 })} />
 <select className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" value={form.status} onChange={(e) => setForm({
-...form, status: e.target.value })}>
+...form, status: e.target.value as Kegiatan["status"] })}>
 
 
 {["Terjadwal", "Berlangsung", "Selesai", "Dibatalkan"].map((s) =>

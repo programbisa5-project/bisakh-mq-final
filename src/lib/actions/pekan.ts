@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireSuperadmin } from "@/lib/auth/role";
+import type { Pekan } from "@/lib/supabase/database.types";
 export async function simpanPekan(input: {
 id?: number;
 
@@ -11,7 +12,7 @@ nomor_pekan: number;
 nama_pekan: string | null;
 tanggal_mulai: string | null;
 tanggal_selesai: string | null;
-status: string;
+status: Pekan["status"];
 keterangan: string | null;
 }) {
 await requireSuperadmin();

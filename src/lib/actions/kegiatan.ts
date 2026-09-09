@@ -2,13 +2,14 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireSuperadmin } from "@/lib/auth/role";
+import type { Kegiatan } from "@/lib/supabase/database.types";
 export async function simpanKegiatan(input: {
 id?: number;
 pekan_id: number;
 nama_kegiatan: string;
 deskripsi: string | null;
 tanggal_kegiatan: string | null;
-status: string;
+status: Kegiatan["status"];
 keterangan: string | null;
 }) {
 await requireSuperadmin();

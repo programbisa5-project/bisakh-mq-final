@@ -50,7 +50,7 @@ return (
 {form.nama_angkatan} onChange={(e) => setForm({ ...form,
 nama_angkatan: e.target.value })} />
 <select className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" value={form.status} onChange={(e) => setForm({
-...form, status: e.target.value })}>
+...form, status: e.target.value as Angkatan["status"] })}>
 {["Belum Mulai", "Aktif", "Selesai"].map((s) => <option key={s} value=
 {s}>{s}</option>)}
 </select>

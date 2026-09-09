@@ -2,13 +2,14 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireSuperadmin, requireUser } from "@/lib/auth/role";
+import type { TingkatKesulitan } from "@/lib/supabase/database.types";
 export async function simpanSoal(input: {
 id?: number;
 nomor_soal: number | null;
 pertanyaan: string;
 jawaban: string | null;
 kategori: string | null;
-tingkat_kesulitan: string | null;
+tingkat_kesulitan: TingkatKesulitan | null;
 status_aktif: boolean;
 }) {
 await requireSuperadmin();

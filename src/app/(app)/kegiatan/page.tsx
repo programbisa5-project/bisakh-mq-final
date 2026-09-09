@@ -30,12 +30,13 @@ const { data: pekanList } = angkatanId
 ? await supabase.from("pekan").select("id, nomor_pekan, nama_pekan").eq("angkatan_id",
 angkatanId).order("nomor_pekan")
 : { data: [] as any[] };
-const pekanIds = (pekanList ?? []).map((p) => p.id);
+const availablePekanList = pekanList ?? [];
+const pekanIds = availablePekanList.map((p) => p.id);
 const { data: kegiatanRows } = pekanIds.length
 ? await supabase.from("kegiatan").select("*").in("pekan_id",
 pekanIds).order("tanggal_kegiatan", { ascending: true })
 : { data: [] as any[] };
-const pekanMap = new Map((pekanList ?? []).map((p) => [p.id, p]));
+const pekanMap = new Map(availablePekanList.map((p) => [p.id, p]));
 return (
 <div>
 <div className="flex flex-wrap items-center justify-between gap-3">
@@ -48,10 +49,9 @@ return (
 </div>
 
 
-{isSuperadmin && pekanList?.length > 0
-  ? <KegiatanForm pekanOptions={pekanList} />
+{isSuperadmin && availablePekanList.length > 0
+  ? <KegiatanForm pekanOptions={availablePekanList} />
   : null}
-</div>
 <div className="mt-4 space-y-2">
 {!kegiatanRows || kegiatanRows.length === 0 ? (
 <EmptyState title="Belum ada kegiatan untuk angkatan ini" />
@@ -72,7 +72,7 @@ kegiatanRows.map((k) => (
 <Link href={`/pemenang?kegiatan=${k.id}`}
 className="text-xs text-moss-600 hover:underline">Pemenang</Link>
 {isSuperadmin ? <KegiatanForm pekanOptions=
-{pekanList ?? []} existing={k} /> : null}
+{availablePekanList} existing={k} /> : null}
 </div>
 </div>
 ))

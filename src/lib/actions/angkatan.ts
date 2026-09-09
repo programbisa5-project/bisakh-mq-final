@@ -2,10 +2,11 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireSuperadmin } from "@/lib/auth/role";
+import type { Angkatan } from "@/lib/supabase/database.types";
 export async function simpanAngkatan(input: {
 id?: number;
 nama_angkatan: string;
-status: string;
+status: Angkatan["status"];
 tanggal_mulai: string | null;
 tanggal_selesai: string | null;
 keterangan: string | null;

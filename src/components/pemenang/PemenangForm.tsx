@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { cariPesertaUntukPemenang, simpanPemenang } from
 "@/lib/actions/pemenang";
 import { Button } from "@/components/ui/Button";
+import type { KeputusanHadiah } from "@/lib/supabase/database.types";
 export function PemenangForm({ kegiatanId, angkatanId }: {
 kegiatanId: number; angkatanId: number }) {
 const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ const [hasil, setHasil] = useState<{ id: number; nama: string }[]>([]);
 const [dipilih, setDipilih] = useState<{ id: number; nama: string } |
 null>(null);
 const [peringkat, setPeringkat] = useState("");
-const [keputusan, setKeputusan] = useState("Belum Diputuskan");
+const [keputusan, setKeputusan] = useState<KeputusanHadiah>("Belum Diputuskan");
 const [catatan, setCatatan] = useState("");
 const [loading, setLoading] = useState(false);
 async function search(value: string) {
@@ -89,7 +90,7 @@ onClick={() => { setDipilih(h); setHasil([]); }}
 <input type="number" className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Peringkat (opsional)"
 value={peringkat} onChange={(e) => setPeringkat(e.target.value)} />
 <select className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" value={keputusan} onChange={(e) =>
-setKeputusan(e.target.value)}>
+setKeputusan(e.target.value as KeputusanHadiah)}>
 {["Belum Diputuskan", "Diberikan", "Tidak Diberikan"].map((s) =>
 <option key={s} value={s}>{s}</option>)}
 </select>

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireUser, requireSuperadmin } from "@/lib/auth/role";
-import type { JenisPerubahanQueue } from "@/lib/supabase/database.types";
+import type { JenisPerubahanQueue, StatusTb } from "@/lib/supabase/database.types";
 
 /**
  * MQ mengajukan perubahan. INSERT ini tunduk pada RLS update_queue di
@@ -106,7 +106,7 @@ export async function prosesUpdateQueue(input: {
   if (input.keputusan === "Disetujui" && queueRow.peserta_kelas_id) {
     if (queueRow.jenis_perubahan === "UBAH_STATUS") {
       const statusBaru = (queueRow.data_sesudah as Record<string, unknown>)
-        ?.status_tb as string | undefined;
+        ?.status_tb as StatusTb | undefined;
 
       if (statusBaru) {
         const { error: updateError } = await supabase
@@ -295,7 +295,7 @@ export async function ubahMasterDataLangsung(input: {
   const supabase = createClient();
 
   if (input.jenis_perubahan === "UBAH_STATUS") {
-    const statusBaru = input.data_sesudah.status_tb as string | undefined;
+    const statusBaru = input.data_sesudah.status_tb as StatusTb | undefined;
     if (!statusBaru) throw new Error("Status baru wajib diisi.");
 
     const { error: updateError } = await supabase

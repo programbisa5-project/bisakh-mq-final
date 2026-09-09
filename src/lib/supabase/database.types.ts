@@ -221,47 +221,36 @@ updated_at: string;
 }
 // Bentuk generik minimal Database type supaya createClient<Database>() bisa dipakai
 // tanpa harus menunggu hasil supabase gen types yang sesungguhnya.
+type TableRow<Row> = { [Column in keyof Row]: Row[Column] };
+
+type TableDefinition<Row> = {
+Row: TableRow<Row>;
+Insert: Partial<TableRow<Row>>;
+Update: Partial<TableRow<Row>>;
+Relationships: [];
+};
 
 
 export interface Database {
 public: {
 Tables: {
-bisakh_peserta: { Row: BisakhPeserta; Insert:
-Partial<BisakhPeserta>; Update: Partial<BisakhPeserta> };
-angkatan: { Row: Angkatan; Insert: Partial<Angkatan>; Update:
-Partial<Angkatan> };
-peserta_kelas: { Row: PesertaKelas; Insert: Partial<PesertaKelas>;
-Update: Partial<PesertaKelas> };
-mq_user: { Row: MqUser; Insert: Partial<MqUser>; Update:
-Partial<MqUser> };
-pekan: { Row: Pekan; Insert: Partial<Pekan>; Update: Partial<Pekan>
-};
-kegiatan: { Row: Kegiatan; Insert: Partial<Kegiatan>; Update:
-Partial<Kegiatan> };
-pemenang: { Row: Pemenang; Insert: Partial<Pemenang>; Update:
-Partial<Pemenang> };
-riwayat_peserta: { Row: RiwayatPeserta; Insert:
-Partial<RiwayatPeserta>; Update: Partial<RiwayatPeserta> };
-update_queue: { Row: UpdateQueue; Insert:
-Partial<UpdateQueue>; Update: Partial<UpdateQueue> };
-soal: { Row: Soal; Insert: Partial<Soal>; Update: Partial<Soal> };
-soal_usage: { Row: SoalUsage; Insert: Partial<SoalUsage>; Update:
-Partial<SoalUsage> };
-sertifikat_link: { Row: SertifikatLink; Insert: Partial<SertifikatLink>;
-Update: Partial<SertifikatLink> };
-template: { Row: TemplateRow; Insert: Partial<TemplateRow>;
-Update: Partial<TemplateRow> };
-materi: { Row: Materi; Insert: Partial<Materi>; Update:
-Partial<Materi> };
-pembuka_muhadharah: { Row: PembukaMuhadharah; Insert:
-Partial<PembukaMuhadharah>; Update:
-Partial<PembukaMuhadharah> };
-sop_document: { Row: SopDocument; Insert:
-Partial<SopDocument>; Update: Partial<SopDocument> };
-
-
-sop_rule: { Row: SopRule; Insert: Partial<SopRule>; Update:
-Partial<SopRule> };
+bisakh_peserta: TableDefinition<BisakhPeserta>;
+angkatan: TableDefinition<Angkatan>;
+peserta_kelas: TableDefinition<PesertaKelas>;
+mq_user: TableDefinition<MqUser>;
+pekan: TableDefinition<Pekan>;
+kegiatan: TableDefinition<Kegiatan>;
+pemenang: TableDefinition<Pemenang>;
+riwayat_peserta: TableDefinition<RiwayatPeserta>;
+update_queue: TableDefinition<UpdateQueue>;
+soal: TableDefinition<Soal>;
+soal_usage: TableDefinition<SoalUsage>;
+sertifikat_link: TableDefinition<SertifikatLink>;
+template: TableDefinition<TemplateRow>;
+materi: TableDefinition<Materi>;
+pembuka_muhadharah: TableDefinition<PembukaMuhadharah>;
+sop_document: TableDefinition<SopDocument>;
+sop_rule: TableDefinition<SopRule>;
 };
 Views: Record<string, never>;
 Functions: {
