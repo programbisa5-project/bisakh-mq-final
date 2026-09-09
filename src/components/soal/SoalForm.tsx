@@ -60,7 +60,7 @@ onChange={(e) => setForm({ ...form, jawaban: e.target.value })} />
 <input className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" placeholder="Kategori" value={form.kategori}
 onChange={(e) => setForm({ ...form, kategori: e.target.value })} />
 <select className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" value={form.tingkat_kesulitan} onChange={(e) =>
-setForm({ ...form, tingkat_kesulitan: e.target.value })}>
+setForm({ ...form, tingkat_kesulitan: e.target.value as NonNullable<Soal["tingkat_kesulitan"]> })}>
 {["Mudah", "Sedang", "Sulit"].map((s) => <option key={s} value={s}>{s}
 </option>)}
 </select>

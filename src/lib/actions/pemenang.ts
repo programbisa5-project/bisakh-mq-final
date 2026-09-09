@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireUser } from "@/lib/auth/role";
+import type { KeputusanHadiah } from "@/lib/supabase/database.types";
 export async function cariPesertaUntukPemenang(angkatanId:
 number, q: string) {
 await requireUser();
@@ -22,7 +23,7 @@ id?: number;
 kegiatan_id: number;
 peserta_kelas_id: number;
 peringkat: number | null;
-keputusan_hadiah: string;
+keputusan_hadiah: KeputusanHadiah;
 catatan: string | null;
 }) {
 await requireUser();

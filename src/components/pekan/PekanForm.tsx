@@ -63,7 +63,7 @@ nama_pekan: e.target.value })} />
 {(e) => setForm({ ...form, tanggal_selesai: e.target.value })} />
 </div>
 <select className="w-full rounded-md border border-ink/15 px-3 py-2 text-sm" value={form.status} onChange={(e) => setForm({
-...form, status: e.target.value })}>
+...form, status: e.target.value as Pekan["status"] })}>
 {["Belum Mulai", "Berlangsung", "Selesai"].map((s) => <option key={s}
 value={s}>{s}</option>)}
 </select>
